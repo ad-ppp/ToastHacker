@@ -1,11 +1,15 @@
 package com.example.toasthacker
 
 import android.content.Intent
-import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
+import android.support.v7.app.AppCompatActivity
+import android.util.Log
 import android.widget.Toast
+import com.example.toasthacker.toast.BadTokenListener
+import com.example.toasthacker.toast.ToastCompat
 import kotlinx.android.synthetic.main.activity_main.*
+
 
 class MainActivity : AppCompatActivity() {
 
@@ -15,7 +19,7 @@ class MainActivity : AppCompatActivity() {
 
 
         tvConfirm.setOnClickListener {
-            startActivity(Intent(this,MainActivity::class.java))
+            startActivity(Intent(this, MainActivity::class.java))
         }
     }
 
@@ -23,9 +27,11 @@ class MainActivity : AppCompatActivity() {
         super.onDestroy()
 
         Handler().postDelayed({
-            val toast = Toast.makeText(this,"lalalala",Toast.LENGTH_SHORT)
-            ToastHacker.tryToHack(toast)
+            val toast = ToastCompat.makeText(this, "lalalala", Toast.LENGTH_SHORT)
+            toast.setBadTokenListener(BadTokenListener {
+                Log.d("ToastCompat", "onBadTokenCaught")
+            })
             toast.show()
-        },2000)
+        }, 2000)
     }
 }

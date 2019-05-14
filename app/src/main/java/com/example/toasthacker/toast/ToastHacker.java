@@ -1,4 +1,4 @@
-package com.example.toasthacker;
+package com.example.toasthacker.toast;
 
 import android.os.Build;
 import android.os.Handler;
@@ -13,8 +13,7 @@ public class ToastHacker {
     private static final String TAG = "ToastHacker";
 
     private static boolean isNeedToHacker() {
-        return
-                Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP &&
+        return Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP &&
                         Build.VERSION.SDK_INT <= Build.VERSION_CODES.N_MR1;
     }
 
@@ -28,7 +27,7 @@ public class ToastHacker {
             if (mTN != null) {
                 boolean isSuccess = false;
 
-                //a hack to some device which use the code between android 5.1
+                //a hack to some device which use the code between android 6.0 and android 7.1.1
                 Object rawShowRunnable = getFieldValue(mTN, "mShow");
                 if (rawShowRunnable instanceof Runnable) {
                     isSuccess = setFieldValue(mTN, "mShow", new InternalRunnable((Runnable) rawShowRunnable));
